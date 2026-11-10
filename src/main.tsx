@@ -7,6 +7,14 @@ import './index.css';
 // Restore LocalStorage progress before the first render.
 restoreProgress();
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((error: unknown) => {
+      console.error('Failed to register service worker:', error);
+    });
+  });
+}
+
 const root = document.getElementById('root');
 if (!root) throw new Error('#root element missing');
 
